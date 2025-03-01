@@ -4,9 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script scr="main.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>Document</title>
 </head>
 <body>
+    <sidebar class="fixed top-0 left-0 w-64 h-screen bg-gray-800 flex flex-col items-center">
+        <search class="w-60 rounded h-10 bg-gray-700 text-white mt-10 flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <input id="search" type="text" placeholder="Search" class="flex-1 w-0 text-white border-none outline-none">
+        </search>
+        <link1 id="home" class="w-60 rounded h-10 mt-7 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Home</p>
+        </link1>
+        <link2 id="appleTv" class="w-60 rounded h-10 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Apple TV+</p>
+        </link2>
+        <link3 id="store" class="w-60 rounded h-10 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Store</p>
+        </link3>
+        <div class="w-60 rounded h-10 mt-7 text-gray-500 flex items-center text-lg">
+            <p class="flex-1 w-0 border-none outline-none">Libary</p>
+        </div>
+        <link4 id="recentlyAdded" class="w-60 rounded h-10 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Recently Added</p>
+        </link4>
+        <link5 id="movies" class="w-60 rounded h-10 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Movies</p>
+        </link5>
+        <link6 id="tvShows" class="w-60 rounded h-10 hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">TV Shows</p>
+        </link6>
+        <div class="flex-grow"></div>
+        <link1 class="w-60 rounded h-10 mb-2 hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto">
+            <img class="h-5 w-5 m-1" src="search_symbol.png">
+            <p class="flex-1 w-0 text-white border-none outline-none">Account</p>
+        </link1>
+    </sidebar>
     
 </body>
 </html>
