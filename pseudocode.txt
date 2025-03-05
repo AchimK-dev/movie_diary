@@ -1,0 +1,30 @@
+BEGIN
+
+1. First I define the API endpoint for fetching popular movies
+2. Second, I define the Bearer Token
+
+3. FUNCTION fetchMovies(query):
+   - IF query is empty:
+       - CALL fetchPopularMovies() to get all movies
+   - ELSE:
+       - CALL API to fetch movies matching the search query
+       - PARSE JSON response
+       - UPDATE movie list on webpage
+
+4. FUNCTION debounce(callback, delay):
+   - CLEAR the previous timeout (if any) --- Every time the user types a word, the debounce function cancels the previous scheduled function execution. This prevents multiple function calls from being executed too frequently.
+   - SET a new timeout to execute `callback` after `delay` milliseconds --- After the user stops typing for the given delay (e.g., 500ms), the function is executed. If the user types again before the delay is reached, the timer resets, and the function is not called yet.
+
+5. FUNCTION handleSearchInput():
+   - GET the search box input value
+   - CALL debounce() to delay the API call until the user has stopped typing
+
+6. FUNCTION fetchPopularMovies():
+   - CALL API to fetch popular movies
+   - PARSE JSON response
+   - DISPLAY movies
+
+7. EVENT LISTENER on search input:
+   - CALL handleSearchInput() whenever user types
+
+END

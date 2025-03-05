@@ -1,12 +1,12 @@
-// Define API endpoints
+// Define API endpoint for fetching popular movies
 const POPULAR_MOVIES_URL =
   "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
 const SEARCH_MOVIES_URL =
   "https://api.themoviedb.org/3/search/movie?language=en-US&page=1&query=";
 
-// Define Authorization Token (Replace with your actual token)
+// Define Authorization Token
 const AUTH_TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMDRmMDZmMDBhMjRhN2ViNTk1Yjg2ODUyN2IwN2FlZCIsIm5iZiI6MTc0MDgxNzg5Ni43MzEsInN1YiI6IjY3YzJjNWU4Yjg2Yzc5MDNkMzNmNTcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SyMw7tE016kRmbE55wp2POP03YZgU8adbESuWDQoWr0";
+  "Bearer eyJhdWQiOiIzMDRmMDZmMDBhMjRhN2ViNTk1Yjg2ODUyN2IwN2FlZCIsIm5iZiI6MTc0MDgxNzg5Ni43MzEsInN1YiI6IjY3YzJjNWU4Yjg2Yzc5MDNkMzNmNTcyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SyMw7tE016kRmbE55wp2POP03YZgU8adbESuWDQoWr0";
 
 // Define headers for fetch requests
 const HEADERS = {
@@ -40,27 +40,13 @@ function displayMovies(movies) {
   const movieContainer = document.getElementById("movie-list");
   movieContainer.innerHTML = "";
 
-  if (movies.length === 0) {
-    movieContainer.innerHTML =
-      "<p class='text-white text-xl'>No results found.</p>";
-    return;
-  }
-
   movies.forEach((movie) => {
     const movieElement = document.createElement("div");
-    movieElement.classList.add(
-      "movie",
-      "bg-gray-800",
-      "p-2",
-      "rounded",
-      "text-center"
-    );
-
+    movieElement.classList.add("movie");
     movieElement.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="rounded">
-            <h3 class="text-white mt-2">${movie.title}</h3>
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
         `;
-
     movieContainer.appendChild(movieElement);
   });
 }
