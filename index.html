@@ -84,86 +84,70 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="ml-64 w-full">
-      <!-- Movie Preview Section -->
-      <section class="relative w-full h-[500px]">
-        <div id="slider" class="w-full h-full">
-          <!-- Slide 1 -->
-          <article
-            id="slide01"
-            class="slide absolute inset-0 bg-cover bg-center opacity-100"
-            style="
-              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
-            "
-          >
-            <div class="absolute bottom-10 left-10">
-              <h2 class="movie-title text-4xl font-bold">Movie 01</h2>
-              <p class="text-gray-300 mt-2">Description 01</p>
-              <button
-                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
-              >
-                ▶ Watch
-              </button>
-            </div>
-          </article>
-          <!-- Slide 2 -->
-          <article
-            id="slide02"
-            class="slide absolute inset-0 bg-cover bg-center opacity-0"
-            style="
-              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
-            "
-          >
-            <div class="absolute bottom-10 left-10">
-              <h2 class="movie-title text-4xl font-bold">Movie 02</h2>
-              <p class="text-gray-300 mt-2">Description 02</p>
-              <button
-                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
-              >
-                ▶ Watch
-              </button>
-            </div>
-          </article>
-          <!-- Slide 3 -->
-          <article
-            id="slide03"
-            class="slide absolute inset-0 bg-cover bg-center opacity-0"
-            style="
-              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
-            "
-          >
-            <div class="absolute bottom-10 left-10">
-              <h2 class="movie-title text-4xl font-bold">Movie 03</h2>
-              <p class="text-gray-300 mt-2">Description 03</p>
-              <button
-                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
-              >
-                ▶ Watch
-              </button>
-            </div>
-          </article>
-        </div>
-        <!-- Navigation Dots -->
-        <div
-          id="dots"
-          class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
-        >
-          <button
-            class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"
-          ></button>
-          <button
-            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
-          ></button>
-          <button
-            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
-          ></button>
-        </div>
-      </section>
+<main class="ml-64 w-full">
+  <!-- Movie Preview Section -->
+  <section class="relative w-full h-[500px] mb-4">
+    <div id="slider" class="w-full h-full">
 
-      <!-- Movies Grid (Search Results) -->
-      <section id="movie-list" class="grid grid-cols-4 gap-4 p-4">
-        <!-- Movies will be dynamically inserted here -->
-      </section>
-    </main>
-  </body>
+      <!-- Slide 01 -->
+      <div id="slide01" class="slide absolute inset-0 bg-cover bg-center opacity-100">
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+          <p class="text-gray-300 mt-2">Movie Description</p>
+          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        </div>
+      </div>
+
+      <!-- Slide 02 -->
+      <div id="slide02" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+          <p class="text-gray-300 mt-2">Movie Description</p>
+          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        </div>
+      </div>
+
+      <!-- Slide 03 -->
+      <div id="slide03" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+          <p class="text-gray-300 mt-2">Movie Description</p>
+          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        </div>
+      </div>
+
+      <!-- Slide 04 -->
+      <div id="slide04" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+          <p class="text-gray-300 mt-2">Movie Description</p>
+          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        </div>
+      </div>
+
+      <!-- Slide 05 -->
+      <div id="slide05" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+          <p class="text-gray-300 mt-2">Movie Description</p>
+          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div id="dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <button class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"></button>
+      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+    </div>
+  </section>
+
+  <!-- Movies Grid (Search Results) -->
+  <section id="movie-list" class="grid grid-cols-4 gap-4 p-4">
+</main>
+</body>
+  
 </html>

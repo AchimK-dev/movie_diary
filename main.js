@@ -29,7 +29,10 @@ async function fetchMovies(query = "") {
     }
 
     const data = await response.json();
+    const movies = data.results;
+
     displayMovies(data.results);
+    updateSlider(movies.slice(0, 5));
   } catch (error) {
     console.error("Failed to fetch movies:", error);
   }
@@ -87,3 +90,61 @@ document
 
 // Fetch popular movies on page load
 window.onload = () => fetchMovies();
+
+
+// Function to display movies on the slider - muathsCode
+function updateSlider(movies) {
+  const slides = document.querySelectorAll(".slide");
+
+  movies.forEach((movie, index) => {
+    if (slides[index]) {
+      slides[index].style.backgroundImage = `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`;
+
+      let titleElement = slides[index].querySelector(".movie-title");
+      let descriptionElement = slides[index].querySelector("p");
+
+      if (titleElement) titleElement.textContent = movie.title;
+      if (descriptionElement) descriptionElement.textContent = movie.overview;
+    }
+  });
+}
+
+// Navigation Dots - muathsCode
+let slides = document.querySelectorAll(".slide");
+let dots = document.querySelectorAll(".dot");
+
+let currentIndex = 0;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle("opacity-100", i === index);
+        slide.classList.toggle("opacity-0", i !== index);
+    });
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("opacity-100", i === index);
+        dot.classList.toggle("opacity-50", i !== index);
+    });
+
+    currentIndex = index; }
+
+function nextSlide() {
+    let nextIndex = (currentIndex + 1) % slides.length;
+    showSlide(nextIndex); }
+
+dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => showSlide(index));});
+
+searchBar.addEventListener("input", () => {
+    let query = searchBar.value.toLowerCase();
+    let found = false;
+    slides.forEach((slide, index) => {
+        let title = slide.querySelector(".movie-title").textContent.toLowerCase();
+        if (title.includes(query)) {
+            showSlide(index);
+            found = true;}});
+
+    if (!found) showSlide(0);});
+
+    function startSlider() {
+      setInterval(() => { nextSlide(); }, 3000);}
