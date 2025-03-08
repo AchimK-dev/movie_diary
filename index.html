@@ -1,107 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script scr="main.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="main.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-</head>
+    <title>Movie Diary</title>
+  </head>
 
-<body class="bg-black text-white flex">
-    <sidebar class="fixed top-0 left-0 w-64 h-screen bg-gray-800 flex flex-col items-center">
-        <search class="w-60 rounded h-10 bg-gray-700 text-white mt-10 flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="search_symbol.png">
-            <input id="search" type="text" placeholder="Search" class="flex-1 w-0 text-white bg-gray-700 border-none outline-none">
-        </search>
-        <link1 id="home" class="w-60 rounded h-10 mt-7 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="home.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Home</p>
-        </link1>
-        <link2 id="appleTv" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="screen.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Apple TV+</p>
-        </link2>
-        <link3 id="store" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="basket-shopping-simple.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Store</p>
-        </link3>
-        <div class="w-60 rounded h-10 mt-7 text-gray-500 flex items-center text-lg">
-            <p class="flex-1 w-0 border-none outline-none">Library</p>
-        </div>
-        <link4 id="recentlyAdded" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="clock-nine.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Recently Added</p>
-        </link4>
-        <link5 id="movies" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="film.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Movies</p>
-        </link5>
-        <link6 id="tvShows" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
-            <img class="h-5 w-5 m-1" src="screen.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">TV Shows</p>
-        </link6>
-        <div class="flex-grow"></div>
-        <link1 class="w-60 rounded h-10 mb-2 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto">
-            <img class="h-5 w-5 m-1" src="search_symbol.png">
-            <p class="flex-1 w-0 text-white border-none outline-none">Account</p>
-        </link1>
-    </sidebar>
-  
-    <!-- Page // Main -->
+  <body class="bg-black text-white flex">
+    <!-- Sidebar Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-64 h-screen bg-gray-800 flex flex-col items-center"
+    >
+      <!-- Search Box -->
+      <div
+        class="w-60 rounded h-10 bg-gray-700 text-white mt-10 flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="search_symbol.png" />
+        <input
+          id="search-box"
+          type="text"
+          placeholder="Search for a movie..."
+          class="flex-1 w-0 text-white bg-gray-700 border-none outline-none"
+        />
+      </div>
+
+      <!-- Navigation Links -->
+      <div
+        id="home"
+        class="w-60 rounded h-10 mt-7 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="home.png" />
+        <p>Home</p>
+      </div>
+      <div
+        id="appleTv"
+        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="screen.png" />
+        <p>Apple TV+</p>
+      </div>
+      <div
+        id="store"
+        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="basket-shopping-simple.png" />
+        <p>Store</p>
+      </div>
+      <div
+        class="w-60 rounded h-10 mt-7 text-gray-500 flex items-center text-lg"
+      >
+        <p>Library</p>
+      </div>
+      <div
+        id="recentlyAdded"
+        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="clock-nine.png" />
+        <p>Recently Added</p>
+      </div>
+      <div
+        id="movies"
+        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="film.png" />
+        <p>Movies</p>
+      </div>
+      <div
+        id="tvShows"
+        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
+      >
+        <img class="h-5 w-5 m-1" src="screen.png" />
+        <p>TV Shows</p>
+      </div>
+      <div class="flex-grow"></div>
+      <div
+        class="w-60 rounded h-10 mb-2 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto"
+      >
+        <img class="h-5 w-5 m-1" src="search_symbol.png" />
+        <p>Account</p>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
     <main class="ml-64 w-full">
-
-        <!-- Part 01: Movie Preview Section // Muath -->
-        <section class="relative w-full h-[500px]">
-            
-            <div id="slider" class="w-full h-full">
-
-                <!-- Slide 1 -->
-                <article id="slide01" class="slide absolute inset-0 bg-cover bg-center opacity-100"
-                    style="background-image: API Content to get;">
-                    <div class="absolute bottom-10 left-10">
-                        <h2 class="movie-title text-4xl font-bold">Movie 01</h2>
-                        <p class="text-gray-300 mt-2">Description 01</p>
-                        <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded">▶ Watch</button>
-                    </div>git fetch
-                </article>
-
-                <!-- Slide 2 -->
-                <article id="slide02" class="slide absolute inset-0 bg-cover bg-center opacity-0"
-                    style="background-image: API Content to get;">
-                    <div class="absolute bottom-10 left-10">
-                        <h2 class="movie-title text-4xl font-bold">Movie 02</h2>
-                        <p class="text-gray-300 mt-2">Description 02</p>
-                        <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded">▶ Watch</button>
-                    </div>
-                </article>
-
-                <!-- Slide 3 -->
-                <article id="slide03" class="slide absolute inset-0 bg-cover bg-center opacity-0"
-                    style="background-image: API Content to get;">
-                    <div class="absolute bottom-10 left-10">
-                        <h2 class="movie-title text-4xl font-bold">Movie 03</h2>
-                        <p class="text-gray-300 mt-2">Description 03</p>
-                        <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded">▶ Watch</button>
-                    </div>
-                </article>
+      <!-- Movie Preview Section -->
+      <section class="relative w-full h-[500px]">
+        <div id="slider" class="w-full h-full">
+          <!-- Slide 1 -->
+          <article
+            id="slide01"
+            class="slide absolute inset-0 bg-cover bg-center opacity-100"
+            style="
+              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
+            "
+          >
+            <div class="absolute bottom-10 left-10">
+              <h2 class="movie-title text-4xl font-bold">Movie 01</h2>
+              <p class="text-gray-300 mt-2">Description 01</p>
+              <button
+                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
+              >
+                ▶ Watch
+              </button>
             </div>
-
-            <!-- Navigation Dots -->
-            <div id="dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                <button class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"></button>
-                <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-                <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-               
+          </article>
+          <!-- Slide 2 -->
+          <article
+            id="slide02"
+            class="slide absolute inset-0 bg-cover bg-center opacity-0"
+            style="
+              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
+            "
+          >
+            <div class="absolute bottom-10 left-10">
+              <h2 class="movie-title text-4xl font-bold">Movie 02</h2>
+              <p class="text-gray-300 mt-2">Description 02</p>
+              <button
+                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
+              >
+                ▶ Watch
+              </button>
             </div>
-        </section>
+          </article>
+          <!-- Slide 3 -->
+          <article
+            id="slide03"
+            class="slide absolute inset-0 bg-cover bg-center opacity-0"
+            style="
+              background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
+            "
+          >
+            <div class="absolute bottom-10 left-10">
+              <h2 class="movie-title text-4xl font-bold">Movie 03</h2>
+              <p class="text-gray-300 mt-2">Description 03</p>
+              <button
+                class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
+              >
+                ▶ Watch
+              </button>
+            </div>
+          </article>
+        </div>
+        <!-- Slide 4 -->
+        <article
+        id="slide04"
+        class="slide absolute inset-0 bg-cover bg-center opacity-0"
+        style="
+          background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
+        "
+      >
+        <div class="absolute bottom-10 left-10">
+          <h2 class="movie-title text-4xl font-bold">Movie 04</h2>
+          <p class="text-gray-300 mt-2">Description 04</p>
+          <button
+            class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
+          >
+            ▶ Watch
+          </button>
+        </div>
+      </article>
+    </div>
+    <!-- Slide 5 -->
+    <article
+    id="slide05"
+    class="slide absolute inset-0 bg-cover bg-center opacity-0"
+    style="
+      background-image: url('https://image.tmdb.org/t/p/original/YOUR_IMAGE_PATH');
+    "
+  >
+    <div class="absolute bottom-10 left-10">
+      <h2 class="movie-title text-4xl font-bold">Movie 05</h2>
+      <p class="text-gray-300 mt-2">Description 05</p>
+      <button
+        class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"
+      >
+        ▶ Watch
+      </button>
+    </div>
+  </article>
+</div>
+        <!-- Navigation Dots -->
+        <div
+          id="dots"
+          class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+        >
+          <button
+            class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"
+          ></button>
+          <button
+            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
+          ></button>
+          <button
+            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
+          ></button>
+          <button
+            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
+          ></button>
+          <button
+            class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"
+          ></button>
+        </div>
+      </section>
 
-        <!-- Part 03: moviesGrid // All? -->
-        <section class="bg-[rgb(45,45,45)] h-screen flex justify-center items-center">
-            <p class="text-black text-xl">Part 03_moviesGrid</p>
-        </section>
-
+      <!-- Movies Grid (Search Results) -->
+      <section id="movie-list" class="grid grid-cols-4 gap-4 p-4">
+        <!-- Movies will be dynamically inserted here -->
+      </section>
     </main>
-    
-</body>
+  </body>
 </html>
