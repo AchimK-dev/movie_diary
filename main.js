@@ -93,7 +93,7 @@ document
 window.onload = () => fetchMovies();
 
 
-// Function to display movies on the slider muathsCode
+// Function to display movies on the slider - muathsCode
 function updateSlider(movies) {
   const slides = document.querySelectorAll(".slide");
 
