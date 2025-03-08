@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" defer></script>
+    <script src="journal.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Movie Diary</title>
   </head>
@@ -32,7 +33,7 @@
         class="w-60 rounded h-10 mt-7 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
       >
         <img class="h-5 w-5 m-1" src="home.png" />
-        <p>Home</p>
+        <p><a href="index.html">Home</a></p>
       </div>
       <div
         id="appleTv"
@@ -57,8 +58,8 @@
         id="recentlyAdded"
         class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
       >
-        <img class="h-5 w-5 m-1" src="clock-nine.png" />
-        <p>Recently Added</p>
+        <img class="h-5 w-5 m-1" src="favorite.png" />
+        <p><a href="journal.html">Favorite</a></p>
       </div>
       <div
         id="movies"
@@ -78,7 +79,7 @@
       <div
         class="w-60 rounded h-10 mb-2 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto"
       >
-        <img class="h-5 w-5 m-1" src="search_symbol.png" />
+        <img class="h-5 w-5 m-1" src="user.png" />
         <p>Account</p>
       </div>
     </nav>
@@ -146,7 +147,7 @@
   </section>
 
   <!-- Movies Grid (Search Results) -->
-  <section id="movie-list" class="grid grid-cols-4 gap-4 p-4">
+  <section id="movie-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
 </main>
 </body>
   
