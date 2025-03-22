@@ -7,148 +7,195 @@
     <script src="journal.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Movie Diary</title>
+    <style>
+      /* Custom styles for the burger menu */
+      .burger-menu {
+        display: none;
+      }
+      @media (max-width: 1024px) {
+        .burger-menu {
+          display: block;
+        }
+        .sidebar {
+          display: none;
+        }
+      }
+      .sidebar-overlay {
+        display: none;
+      }
+      .sidebar-overlay.active {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10;
+      }
+      .sidebar.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+      }
+      .movie-preview {
+        height: 40rem;
+      }
+    </style>
   </head>
 
-  <body class="bg-black text-white flex">
-    <!-- Sidebar Navigation -->
-    <nav
-      class="fixed top-0 left-0 w-64 h-screen bg-gray-800 flex flex-col items-center"
-    >
-      <!-- Search Box -->
-      <div
-        class="w-60 rounded h-10 bg-gray-700 text-white mt-10 flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="search_symbol.png" />
-        <input
-          id="search-box"
-          type="text"
-          placeholder="Search for a movie..."
-          class="flex-1 w-0 text-white bg-gray-700 border-none outline-none"
-        />
+  <body class="bg-black text-white flex justify-center">
+    <div class="container mx-auto flex">
+      <!-- Burger Menu -->
+      <div class="burger-menu fixed top-4 left-4 z-30 lg:hidden">
+        <button id="burger-button" class="text-white">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
       </div>
 
-      <!-- Navigation Links -->
-      <div
-        id="home"
-        class="w-60 rounded h-10 mt-7 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="home.png" />
-        <p><a href="index.html">Home</a></p>
-      </div>
-      <div
-        id="appleTv"
-        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="screen.png" />
-        <p>Apple TV+</p>
-      </div>
-      <div
-        id="store"
-        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="basket-shopping-simple.png" />
-        <p>Store</p>
-      </div>
-      <div
-        class="w-60 rounded h-10 mt-7 text-gray-500 flex items-center text-lg"
-      >
-        <p>Library</p>
-      </div>
-      <div
-        id="recentlyAdded"
-        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="favorite.png" />
-        <p><a href="journal.html">Favorite</a></p>
-      </div>
-      <div
-        id="movies"
-        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="film.png" />
-        <p>Movies</p>
-      </div>
-      <div
-        id="tvShows"
-        class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg"
-      >
-        <img class="h-5 w-5 m-1" src="screen.png" />
-        <p>TV Shows</p>
-      </div>
-      <div class="flex-grow"></div>
-      <div
-        class="w-60 rounded h-10 mb-2 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto"
-      >
-        <img class="h-5 w-5 m-1" src="user.png" />
-        <p>Account</p>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-<main class="ml-64 w-full">
-  <!-- Movie Preview Section -->
-  <section class="relative w-full h-[500px] mb-4">
-    <div id="slider" class="w-full h-full">
-
-      <!-- Slide 01 -->
-      <div id="slide01" class="slide absolute inset-0 bg-cover bg-center opacity-100">
-        <div class="absolute bottom-10 left-10">
-          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
-          <p class="text-gray-300 mt-2">Movie Description</p>
-          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+      <!-- Sidebar Navigation -->
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+      <nav class="sidebar min-w-64 h-screen bg-gray-800 justify-items-center flex-grow fixed top-0 left-0 z-20 lg:block hidden">
+        <!-- Search Box -->
+        <div class="w-60 rounded h-10 bg-gray-700 text-white lg:mt-7 mt-16 flex items-center text-lg">
+          <img class="h-5 w-5 m-1" src="search_symbol.png" />
+          <input
+            id="search-box"
+            type="text"
+            placeholder="Search for a movie..."
+            class="flex-1 w-0 text-white bg-gray-700 border-none outline-none"
+          />
         </div>
-      </div>
 
-      <!-- Slide 02 -->
-      <div id="slide02" class="slide absolute inset-0 bg-cover bg-center opacity-0">
-        <div class="absolute bottom-10 left-10">
-          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
-          <p class="text-gray-300 mt-2">Movie Description</p>
-          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+        <!-- Navigation Links -->
+        <a href="index.html" class="w-full">
+          <div id="home" class="w-60 rounded h-10 mt-7 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="home.png" />
+            <p>Home</p>
+          </div>
+        </a>
+        <a href="appleTv.html" class="w-full">
+          <div id="appleTv" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="screen.png" />
+            <p>Apple TV+</p>
+          </div>
+        </a>
+        <a href="store.html" class="w-full">
+          <div id="store" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="basket-shopping-simple.png" />
+            <p>Store</p>
+          </div>
+        </a>
+        <div class="w-60 rounded h-10 mt-7 text-gray-500 flex items-center text-lg">
+          <p>Library</p>
         </div>
-      </div>
+        <a href="journal.html" class="w-full">
+          <div id="recentlyAdded" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="favorite.png" />
+            <p>Favorite</p>
+          </div>
+        </a>
+        <a href="movies.html" class="w-full">
+          <div id="movies" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="film.png" />
+            <p>Movies</p>
+          </div>
+        </a>
+        <a href="tvShows.html" class="w-full">
+          <div id="tvShows" class="w-60 rounded h-10 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg">
+            <img class="h-5 w-5 m-1" src="screen.png" />
+            <p>TV Shows</p>
+          </div>
+        </a>
+        <div class="flex-grow"></div>
+        <a href="account.html" class="w-full">
+          <div class="w-60 rounded h-10 mb-2 hover:cursor-pointer hover:bg-gray-400/20 text-white flex items-center text-lg mt-auto">
+            <img class="h-5 w-5 m-1" src="user.png" />
+            <p>Account</p>
+          </div>
+        </a>
+      </nav>
 
-      <!-- Slide 03 -->
-      <div id="slide03" class="slide absolute inset-0 bg-cover bg-center opacity-0">
-        <div class="absolute bottom-10 left-10">
-          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
-          <p class="text-gray-300 mt-2">Movie Description</p>
-          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
-        </div>
-      </div>
+      <!-- Main Content -->
+      <main class="flex-grow flex flex-col lg:ml-64">
+        <!-- Movie Preview Section -->
+        <section class="w-full movie-preview mb-4 relative z-0">
+          <div id="slider" class="w-full h-full">
+            <!-- Slide 01 -->
+            <div id="slide01" class="slide absolute inset-0 bg-cover bg-center opacity-100">
+              <div class="absolute bottom-10 left-10">
+                <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+                <p class="text-gray-300 mt-2">Movie Description</p>
+                <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+              </div>
+            </div>
+            <!-- Slide 02 -->
+            <div id="slide02" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+              <div class="absolute bottom-10 left-10">
+                <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+                <p class="text-gray-300 mt-2">Movie Description</p>
+                <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+              </div>
+            </div>
+            <!-- Slide 03 -->
+            <div id="slide03" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+              <div class="absolute bottom-10 left-10">
+                <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+                <p class="text-gray-300 mt-2">Movie Description</p>
+                <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+              </div>
+            </div>
+            <!-- Slide 04 -->
+            <div id="slide04" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+              <div class="absolute bottom-10 left-10">
+                <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+                <p class="text-gray-300 mt-2">Movie Description</p>
+                <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+              </div>
+            </div>
+            <!-- Slide 05 -->
+            <div id="slide05" class="slide absolute inset-0 bg-cover bg-center opacity-0">
+              <div class="absolute bottom-10 left-10">
+                <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
+                <p class="text-gray-300 mt-2">Movie Description</p>
+                <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
+              </div>
+            </div>
+          </div>
+          <!-- Navigation Dots -->
+          <div id="dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <button class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"></button>
+            <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+            <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+            <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+            <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
+          </div>
+        </section>
 
-      <!-- Slide 04 -->
-      <div id="slide04" class="slide absolute inset-0 bg-cover bg-center opacity-0">
-        <div class="absolute bottom-10 left-10">
-          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
-          <p class="text-gray-300 mt-2">Movie Description</p>
-          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
-        </div>
-      </div>
-
-      <!-- Slide 05 -->
-      <div id="slide05" class="slide absolute inset-0 bg-cover bg-center opacity-0">
-        <div class="absolute bottom-10 left-10">
-          <h2 class="movie-title text-4xl font-bold">Movie Name</h2>
-          <p class="text-gray-300 mt-2">Movie Description</p>
-          <button class="mt-4 px-6 py-2 bg-white text-black font-bold rounded"> ▶ Watch </button>
-        </div>
-      </div>
+        <!-- Movies Grid (Search Results) -->
+        <section id="movie-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4  flex-grow z-10 justify-items-center"></section>
+      </main>
     </div>
+    <script>
+      // JavaScript to toggle the sidebar
+      document.getElementById('burger-button').addEventListener('click', function() {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      });
 
-    <!-- Navigation Dots -->
-    <div id="dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-      <button class="dot w-3 h-3 bg-white rounded-full opacity-100 cursor-pointer"></button>
-      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-      <button class="dot w-3 h-3 bg-white rounded-full opacity-50 cursor-pointer"></button>
-    </div>
-  </section>
-
-  <!-- Movies Grid (Search Results) -->
-  <section id="movie-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-</main>
-</body>
-  
+      // Hide sidebar when clicking outside of it
+      document.getElementById('sidebar-overlay').addEventListener('click', function() {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+    </script>
+  </body> 
 </html>
