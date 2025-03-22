@@ -55,16 +55,16 @@ function displayMovies(movies) {
       "movie",
       "bg-gray-800",
       "p-2",
-      "rounded",
       "text-center",
-      "relative"
+      "relative",
+      "max-w-[500px]"
     );
 
     const isFavorite = isMovieFavorite(movie.id);
     const favoriteIcon = isFavorite ? "favorite-full.png" : "favorite.png";
 
     movieElement.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="rounded mx-auto block">
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class=" mx-auto block">
       <h3 class="text-white mt-2">${movie.title}</h3>
       <button class="absolute bottom-2 left-2 favorite-button" data-movie-id="${movie.id}">
         <img src="${favoriteIcon}" alt="Favorite" class="h-6 w-6">
@@ -199,3 +199,4 @@ searchBar.addEventListener("input", () => {
 
     function startSlider() {
       setInterval(() => { nextSlide(); }, 3000);}
+      
