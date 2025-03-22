@@ -1,8 +1,6 @@
 // Define API endpoints
-const POPULAR_MOVIES_URL =
-  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
-const SEARCH_MOVIES_URL =
-  "https://api.themoviedb.org/3/search/movie?language=en-US&page=1&query=";
+const POPULAR_MOVIES_URL = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=";
+const SEARCH_MOVIES_URL = "https://api.themoviedb.org/3/search/movie?language=en-US&page=1&query=";
 
 // Define Authorization Token
 const AUTH_TOKEN =
@@ -14,12 +12,20 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
+// Paginationfor Infinite Scroll
+let page = 1; 
+let isFetching = false; 
+let currentQuery = "";
+
 // Function to fetch and display movies (popular or searched)
-async function fetchMovies(query = "") {
+async function fetchMovies(query = "", reset = false) {
+  if (isFetching) return; 
+  isFetching = true;
+
   try {
     let apiUrl =
       query.trim() === ""
-        ? POPULAR_MOVIES_URL
+        ? `${POPULAR_MOVIES_URL}${page}`
         : `${SEARCH_MOVIES_URL}${encodeURIComponent(query)}`;
 
     const response = await fetch(apiUrl, { headers: HEADERS });
@@ -30,22 +36,29 @@ async function fetchMovies(query = "") {
 
     const data = await response.json();
     const movies = data.results;
-    
-    displayMovies(data.results);
+
+    if (reset) {
+      document.getElementById("movie-list").innerHTML = "";
+      page = 1;
+    }
+
+    displayMovies(movies);
     updateSlider(movies.slice(0, 5));
+
+    page++;
   } catch (error) {
     console.error("Failed to fetch movies:", error);
+  } finally {
+    isFetching = false; 
   }
 }
 
 // Function to display movies on the webpage
 function displayMovies(movies) {
   const movieContainer = document.getElementById("movie-list");
-  movieContainer.innerHTML = "";
 
-  if (movies.length === 0) {
-    movieContainer.innerHTML =
-      "<p class='text-white text-xl'>No results found.</p>";
+  if (movies.length === 0 && movieContainer.innerHTML === "") {
+    movieContainer.innerHTML = "<p class='text-white text-xl'>No results found.</p>";
     return;
   }
 
@@ -55,16 +68,16 @@ function displayMovies(movies) {
       "movie",
       "bg-gray-800",
       "p-2",
+      "rounded",
       "text-center",
-      "relative",
-      "max-w-[500px]"
+      "relative"
     );
 
     const isFavorite = isMovieFavorite(movie.id);
     const favoriteIcon = isFavorite ? "favorite-full.png" : "favorite.png";
 
     movieElement.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class=" mx-auto block">
+      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="rounded mx-auto block">
       <h3 class="text-white mt-2">${movie.title}</h3>
       <button class="absolute bottom-2 left-2 favorite-button" data-movie-id="${movie.id}">
         <img src="${favoriteIcon}" alt="Favorite" class="h-6 w-6">
@@ -121,13 +134,12 @@ function debounce(callback, delay) {
 // Function to handle search input with debounce
 const handleSearchInput = debounce((event) => {
   const query = event.target.value;
-  fetchMovies(query);
-}, 500); // 500ms delay
+  currentQuery = query;
+  fetchMovies(query, true);
+}, 500); 
 
 // Event listener for the search input box
-document
-  .getElementById("search-box")
-  .addEventListener("input", handleSearchInput);
+document.getElementById("search-box").addEventListener("input", handleSearchInput);
 
 // Fetch popular movies on page load
 window.onload = () => fetchMovies();
@@ -141,7 +153,12 @@ setInterval(() => {
   });
 }, 1000); // Update every 1 second
 
-
+// **Infinite Scroll Implementation**
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+    fetchMovies(currentQuery);
+  }
+});
 
 // Function to display movies on the slider - muathsCode
 function updateSlider(movies) {
@@ -167,36 +184,44 @@ let dots = document.querySelectorAll(".dot");
 let currentIndex = 0;
 
 function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.toggle("opacity-100", i === index);
-        slide.classList.toggle("opacity-0", i !== index);
-    });
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("opacity-100", i === index);
+    slide.classList.toggle("opacity-0", i !== index);
+  });
 
-    dots.forEach((dot, i) => {
-        dot.classList.toggle("opacity-100", i === index);
-        dot.classList.toggle("opacity-50", i !== index);
-    });
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("opacity-100", i === index);
+    dot.classList.toggle("opacity-50", i !== index);
+  });
 
-    currentIndex = index; }
+  currentIndex = index;
+}
 
 function nextSlide() {
-    let nextIndex = (currentIndex + 1) % slides.length;
-    showSlide(nextIndex); }
+  let nextIndex = (currentIndex + 1) % slides.length;
+  showSlide(nextIndex);
+}
 
 dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => showSlide(index));});
+  dot.addEventListener("click", () => showSlide(index));
+});
 
 searchBar.addEventListener("input", () => {
-    let query = searchBar.value.toLowerCase();
-    let found = false;
-    slides.forEach((slide, index) => {
-        let title = slide.querySelector(".movie-title").textContent.toLowerCase();
-        if (title.includes(query)) {
-            showSlide(index);
-            found = true;}});
+  let query = searchBar.value.toLowerCase();
+  let found = false;
+  slides.forEach((slide, index) => {
+    let title = slide.querySelector(".movie-title").textContent.toLowerCase();
+    if (title.includes(query)) {
+      showSlide(index);
+      found = true;
+    }
+  });
 
-    if (!found) showSlide(0);});
+  if (!found) showSlide(0);
+});
 
-    function startSlider() {
-      setInterval(() => { nextSlide(); }, 3000);}
-      
+function startSlider() {
+  setInterval(() => {
+    nextSlide();
+  }, 3000);
+}
